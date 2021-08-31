@@ -37,7 +37,13 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Consultar artistas cronologicamente") # R1
+    print("3- Consultar adquisiciones cronologicamente") # R2
+    print("4- Clasificacion de obras por tecnicas de un artista") # R3
+    print("5- Clasificacion de obras por nacionalidad de sus creadores") # R4
+    print("6- Costo de transportar un departamento") # R5
+    print("7- Proponer nueva exposicion en el museo") # R6
+    print("0- Salir")
 
 catalog = None
 
@@ -51,7 +57,25 @@ while True:
         print("Cargando información de los archivos ....")
 
     elif int(inputs[0]) == 2:
-        pass
+        Año_inicial = input("desde que año quieres buscar?: ")
+        Año_fin = input("hasta que año quieres buscar?: ")
+
+    elif int(inputs[0]) == 3:
+        fecha_inicial = input("desde que fecha quieres buscar?(AAAA-MM-DD): ")
+        fecha_fin = input("hasta que fecha quieres buscar?(AAAA-MM-DD): ")
+
+    elif int(inputs[0]) == 4:
+        nombre = input("de que artista deseas buscar?: ")
+
+    elif int(inputs[0]) == 5:
+        print("Cargando...")
+
+    elif int(inputs[0]) == 6:
+        depa = input("Que departamento deseas transportar?: ")
+
+    elif int(inputs[0]) == 7:
+        Año_inicial = input("desde que año inician las obras?: ")
+        Año_fin = input("hasta que año van las obras?: ")
 
     else:
         sys.exit(0)
