@@ -45,7 +45,21 @@ def printMenu():
     print("7- Proponer nueva exposicion en el museo") # R6
     print("0- Salir")
 
-catalog = None
+
+def initCatalog():
+    """
+    Inicializa el catalogo de obras
+    """
+    return controller.initCatalog()
+
+
+def loadData(catalog):
+    """
+    Carga las obras en la estructura de datos
+    """
+    controller.loadData(catalog)
+
+  
 
 """
 Menu principal
@@ -55,6 +69,11 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog=initCatalog()
+        loadData=(catalog)
+        print('Obras de arte cargadas ' + str(lt.size(catalog['artworks'])))
+        print('Artistas cargados ' + str(lt.size(catalog['artists'])))
+        
 
     elif int(inputs[0]) == 2:
         Año_inicial = input("desde que año quieres buscar?: ")
