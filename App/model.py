@@ -56,13 +56,15 @@ def newCatalog():
 
 def addArtwork(catalog,artwork): 
     #Se adiciona la obra  a la lista de obras
-    lt.addLast(catalog['artworks'],artwork)
+    new=newArtwork(artwork['Title'])
+    lt.addLast(catalog['artworks'],new)
     
 
 
 def addArtist(catalog,artist): 
     #Se adiciona el artista  a la lista de artistas
-    lt.addLast(catalog['artists'],artist)
+    new=newArtist(artist['DisplayName'])
+    lt.addLast(catalog['artists'],new)
    
 
 
@@ -70,6 +72,16 @@ def addArtist(catalog,artist):
 
 
 # Funciones para creacion de datos
+
+def newArtwork(name):
+    artwork={'name':''}
+    artwork['name']=name
+    return artwork
+
+def newArtist(name):
+    artist={'name':''}
+    artist['name']=name
+    return artist
 
 # Funciones de consulta
 
