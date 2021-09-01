@@ -60,18 +60,16 @@ def loadArtworks(catalog):
     """
     Carga las obras de arte del archivo.  .
     """
-    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-small.csv'
+    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-large.csv'
     input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
-    print('entró aca')
     for artwork in input_file:
-        print('entró')
         model.addArtwork(catalog, artwork)
 
 def loadArtists(catalog):
     """
     Carga los artistas archivo.  .
     """
-    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-small.csv'
+    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-large.csv'
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -87,6 +85,6 @@ def get3LastElements(lista):
 
    Elements=model.get3LastElements(lista)
 
-   print(str(lt.getElement(Elements, 0)))
-   print(str(lt.getElement(Elements, 1)))
-   print(str(lt.getElement(Elements, 2)))
+   print('1: '+ str(lt.getElement(Elements, 0)['name']))
+   print('2: '+ str(lt.getElement(Elements, 1)['name']))
+   print('3: '+ str(lt.getElement(Elements, 2)['name']))

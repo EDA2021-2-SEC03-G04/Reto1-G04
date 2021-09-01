@@ -60,10 +60,7 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-#Lista provisional para probar el requerimiento de mostrar los 3 ultimos artistas y obras cargadas
-listaprov=lt.newList('ARRAY_LIST')
-for i in [1,2,3,4,5]:
-    lt.addLast(listaprov,i)
+
 
 
 
@@ -76,13 +73,14 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         catalog=initCatalog()
-        loadData=(catalog)
+        loadData(catalog)
         print('Obras de arte cargadas ' + str(lt.size(catalog['artworks'])))
         print('Artistas cargados ' + str(lt.size(catalog['artists'])))
         print('úlitmas 3 obras cargadas: ')
-        controller.get3LastElements(listaprov)
+        controller.get3LastElements(catalog['artworks'])
         print('últimos 3 artistas cargados: ')
-        controller.get3LastElements(listaprov)
+        controller.get3LastElements(catalog['artists'])
+        
         
         
 
