@@ -73,6 +73,15 @@ def addArtist(catalog,artist):
 
 # Funciones de consulta
 
+def get3LastElements(lista):
+    """
+    Retorna los 3 últimos elementos de una lista
+    """
+
+    pos=lt.size(lista)-2
+    return lt.subList(lista, pos, 3)
+        
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def compareartists(artistname1,artist):

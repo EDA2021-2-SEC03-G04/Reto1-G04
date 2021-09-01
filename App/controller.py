@@ -21,6 +21,7 @@
  """
 
 import config as cf
+from DISClib.ADT import list as lt
 import model
 import csv
 
@@ -81,3 +82,11 @@ def loadArtists(catalog):
 # Funciones de ordenamiento
 
 # Funciones de consulta sobre el catálogo
+
+def get3LastElements(lista): 
+
+   Elements=model.get3LastElements(lista)
+
+   print(str(lt.getElement(Elements, 0)))
+   print(str(lt.getElement(Elements, 1)))
+   print(str(lt.getElement(Elements, 2)))

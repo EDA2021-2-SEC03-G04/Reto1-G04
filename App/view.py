@@ -27,6 +27,7 @@ from DISClib.ADT import list as lt
 assert cf
 
 
+
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
@@ -59,7 +60,12 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-  
+#Lista provisional para probar el requerimiento de mostrar los 3 ultimos artistas y obras cargadas
+listaprov=lt.newList('ARRAY_LIST')
+for i in [1,2,3,4,5]:
+    lt.addLast(listaprov,i)
+
+
 
 """
 Menu principal
@@ -73,6 +79,11 @@ while True:
         loadData=(catalog)
         print('Obras de arte cargadas ' + str(lt.size(catalog['artworks'])))
         print('Artistas cargados ' + str(lt.size(catalog['artists'])))
+        print('úlitmas 3 obras cargadas: ')
+        controller.get3LastElements(listaprov)
+        print('últimos 3 artistas cargados: ')
+        controller.get3LastElements(listaprov)
+        
         
 
     elif int(inputs[0]) == 2:
