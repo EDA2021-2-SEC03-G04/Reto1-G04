@@ -74,11 +74,17 @@ def addArtist(catalog,artist):
 # Funciones para creacion de datos
 
 def newArtwork(name):
+    '''
+    Crea un nuevo objeto de obra de arte con atributo de nombre (por ahora)
+    '''
     artwork={'name':''}
     artwork['name']=name
     return artwork
 
 def newArtist(name):
+    '''
+    Crea un nuevo objeto de obra de artista con atributo de nombre (por ahora)
+    '''
     artist={'name':''}
     artist['name']=name
     return artist
@@ -86,6 +92,7 @@ def newArtist(name):
 # Funciones de consulta
 
 def get3LastElements(lista):
+
     """
     Retorna los 3 últimos elementos de una lista
     """
@@ -97,6 +104,9 @@ def get3LastElements(lista):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def compareartists(artistname1,artist):
+    '''
+    Crea una función de comparación para el TAD lista de artista
+    '''
     if (artistname1.lower() in artist['name'].lower()):
         return 0
     return -1

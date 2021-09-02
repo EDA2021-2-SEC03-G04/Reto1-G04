@@ -71,11 +71,14 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+
         print("Cargando información de los archivos ....")
         catalog=initCatalog()
         loadData(catalog)
+
         print('Obras de arte cargadas ' + str(lt.size(catalog['artworks'])))
         print('Artistas cargados ' + str(lt.size(catalog['artists'])))
+        
         print('úlitmas 3 obras cargadas: ')
         controller.get3LastElements(catalog['artworks'])
         print('últimos 3 artistas cargados: ')

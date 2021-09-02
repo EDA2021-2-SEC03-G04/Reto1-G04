@@ -84,6 +84,9 @@ def loadArtists(catalog):
 def get3LastElements(lista): 
 
    Elements=model.get3LastElements(lista)
+   """
+    Imprime los 3 últimos elementos de una lista
+    """
 
    print('1: '+ str(lt.getElement(Elements, 0)['name']))
    print('2: '+ str(lt.getElement(Elements, 1)['name']))
