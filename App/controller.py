@@ -91,3 +91,10 @@ def get3LastElements(lista):
    print('1: '+ str(lt.getElement(Elements, 0)['name']))
    print('2: '+ str(lt.getElement(Elements, 1)['name']))
    print('3: '+ str(lt.getElement(Elements, 2)['name']))
+
+def artistasCronologico(lista, inicio, final):
+    """
+    Retorna los artistas que nacieron enre las dos fechas
+    """
+    ArtistasCrono = model.artistasCronologico(lista, inicio, final)
+    return ArtistasCrono

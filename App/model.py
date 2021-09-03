@@ -105,6 +105,19 @@ def get3LastElements(lista):
     pos=lt.size(lista)-2
     return lt.subList(lista, pos, 3)
         
+def artistasCronologico(lista, inicio, final):
+
+    artistas = lista["artists"]
+    cont = 0
+
+    for x in range(lt.size(artistas)):
+
+        grupo = lt.getElement(artistas, x)
+
+        if int(grupo["begindate"]) != 0 and int(grupo["begindate"]) >= inicio and int(grupo["begindate"]) <= final:
+            cont += 1
+
+    return cont
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

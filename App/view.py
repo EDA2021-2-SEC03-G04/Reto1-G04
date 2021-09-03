@@ -46,6 +46,15 @@ def printMenu():
     print("7- Proponer nueva exposicion en el museo") # R6
     print("0- Salir")
 
+def printEspacio():
+    """
+    añade espacios entre funciones 
+    """
+
+    print("")
+    print("=" * 50)
+    print("")
+
 
 def initCatalog():
     """
@@ -60,7 +69,11 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-
+def printArtistasCrono(numero):
+    """
+    imprime el numero de artistas en un rango de años
+    """
+    print("EL numero de artistas en este rango es: " + str(numero))
 
 
 
@@ -72,6 +85,7 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
 
+        printEspacio()
         print("Cargando información de los archivos ....")
         catalog=initCatalog()
         loadData(catalog)
@@ -83,14 +97,21 @@ while True:
         controller.get3LastElements(catalog['artworks'])
         print('últimos 3 artistas cargados: ')
         controller.get3LastElements(catalog['artists'])
+        printEspacio()
         
         
         
 
     elif int(inputs[0]) == 2:
-        Año_inicial = input("desde que año quieres buscar?: ")
-        Año_fin = input("hasta que año quieres buscar?: ")
 
+        printEspacio()
+        Año_inicial = int(input("desde que año quieres buscar?: "))
+        Año_fin = int(input("hasta que año quieres buscar?: "))
+
+        cantidadArtistas = controller.artistasCronologico(catalog, Año_inicial, Año_fin)
+        printArtistasCrono(cantidadArtistas)
+        printEspacio()
+        
         
 
     elif int(inputs[0]) == 3:
