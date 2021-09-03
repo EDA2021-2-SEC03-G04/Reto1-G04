@@ -63,7 +63,8 @@ def addArtwork(catalog,artwork):
 
 def addArtist(catalog,artist): 
     #Se adiciona el artista  a la lista de artistas
-    new=newArtist(artist['DisplayName'])
+    new=newArtist(artist['DisplayName'],artist['BeginDate'],artist['EndDate'])
+
     lt.addLast(catalog['artists'],new)
    
 
@@ -81,12 +82,16 @@ def newArtwork(name):
     artwork['name']=name
     return artwork
 
-def newArtist(name):
+def newArtist(name,begindate,enddate):
     '''
     Crea un nuevo objeto de obra de artista con atributo de nombre (por ahora)
     '''
-    artist={'name':''}
+    artist={'name':'','begindate':'','enddate':''}
     artist['name']=name
+    artist['begindate']=begindate
+    artist['enddate']=enddate
+    artist['name']=name
+
     return artist
 
 # Funciones de consulta
@@ -112,3 +117,5 @@ def compareartists(artistname1,artist):
     return -1
 
 # Funciones de ordenamiento
+
+

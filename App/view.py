@@ -91,6 +91,8 @@ while True:
         Año_inicial = input("desde que año quieres buscar?: ")
         Año_fin = input("hasta que año quieres buscar?: ")
 
+        
+
     elif int(inputs[0]) == 3:
         fecha_inicial = input("desde que fecha quieres buscar?(AAAA-MM-DD): ")
         fecha_fin = input("hasta que fecha quieres buscar?(AAAA-MM-DD): ")
