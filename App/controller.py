@@ -82,15 +82,12 @@ def loadArtists(catalog):
 # Funciones de consulta sobre el catálogo
 
 def get3LastElements(lista): 
+    '''
+    Le pide al modelo obtener los ultimos tres elementos de una lista
+    '''
+    Elements=model.get3LastElements(lista) 
+    return Elements
 
-   Elements=model.get3LastElements(lista)
-   """
-    Imprime los 3 últimos elementos de una lista
-    """
-
-   print('1: '+ str(lt.getElement(Elements, 0)['name']))
-   print('2: '+ str(lt.getElement(Elements, 1)['name']))
-   print('3: '+ str(lt.getElement(Elements, 2)['name']))
 
 def artistasCronologico(lista, inicio, final):
     """

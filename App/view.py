@@ -84,6 +84,20 @@ def printArtistasCrono(lista):
     print("3) " + lista[5][1] + " nacidos en " + str(lista[6][0]))
 
 
+
+
+def print3LastElements(Elements):
+    '''
+
+    Imprime el nombre de los tres últimos elementos de una lista
+
+    '''
+    print('1: '+ str(lt.getElement(Elements, 0)['name']))
+    print('2: '+ str(lt.getElement(Elements, 1)['name']))
+    print('3: '+ str(lt.getElement(Elements, 2)['name']))
+
+
+
 """
 Menu principal
 """
@@ -101,9 +115,9 @@ while True:
         print('Artistas cargados ' + str(lt.size(catalog['artists'])))
         
         print('úlitmas 3 obras cargadas: ')
-        controller.get3LastElements(catalog['artworks'])
+        print3LastElements(controller.get3LastElements(catalog['artworks']))
         print('últimos 3 artistas cargados: ')
-        controller.get3LastElements(catalog['artists'])
+        print3LastElements(controller.get3LastElements(catalog['artists']))
         printEspacio()
         
         
