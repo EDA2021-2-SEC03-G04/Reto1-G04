@@ -29,6 +29,7 @@ import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 assert cf
+import datetime
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -56,7 +57,7 @@ def newCatalog():
 
 def addArtwork(catalog,artwork): 
     #Se adiciona la obra  a la lista de obras
-    new=newArtwork(artwork['Title'])
+    new=newArtwork(artwork['Title'],artwork['DateAcquired'])
     lt.addLast(catalog['artworks'],new)
     
 
@@ -74,23 +75,36 @@ def addArtist(catalog,artist):
 
 # Funciones para creacion de datos
 
-def newArtwork(name):
+def newArtwork(name,dateacquired):
     '''
-    Crea un nuevo objeto de obra de arte con atributo de nombre (por ahora)
+    Crea un nuevo objeto de obra de arte con atributos de nombre, fecha de adquisición 
     '''
-    artwork={'name':''}
+
+    #Separamos la string de la fecha de adquisición con '-' y lo convertimos a foramto datetime
+    #Si la entrada es vacia entonces se pone feha 1-1-1
+    if dateacquired:
+        datelst=dateacquired.split('-')
+        dateacquired2=datetime.date(int(datelst[0]),int(datelst[1]),int(datelst[2]))
+    else:
+        dateacquired2=datetime.date(1,1,1)
+    
+
+
+
+    artwork={'name':'','dateacquired':''}
     artwork['name']=name
+    artwork['dateacquired']=dateacquired2
     return artwork
 
 def newArtist(name,begindate,enddate):
     '''
-    Crea un nuevo objeto de obra de artista con atributo de nombre (por ahora)
+    Crea un nuevo objeto de obra de artista con atributos de nombre,fecha de inicio, fecha final
     '''
     artist={'name':'','begindate':'','enddate':''}
     artist['name']=name
     artist['begindate']=begindate
     artist['enddate']=enddate
-    artist['name']=name
+    
 
     return artist
 
@@ -105,6 +119,8 @@ def get3LastElements(lista):
     pos=lt.size(lista)-2
     return lt.subList(lista, pos, 3)
         
+
+
 def artistasCronologico(lista, inicio, final):
 
     artistas = lista["artists"]
@@ -190,6 +206,7 @@ def artistasCronologico(lista, inicio, final):
 
         
     return [cont, joven1, joven2, joven3, mayor1, mayor2, mayor3]
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

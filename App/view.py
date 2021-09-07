@@ -86,15 +86,16 @@ def printArtistasCrono(lista):
 
 
 
-def print3LastElements(Elements):
+def print3LastElements(Elements,prop):
     '''
 
     Imprime el nombre de los tres últimos elementos de una lista
+    Prop es el atributo del artista u obra (nombre,fecha,técnica,etc)
 
     '''
-    print('1: '+ str(lt.getElement(Elements, 0)['name']))
-    print('2: '+ str(lt.getElement(Elements, 1)['name']))
-    print('3: '+ str(lt.getElement(Elements, 2)['name']))
+    print('1: '+ str(lt.getElement(Elements, 0)[prop]))
+    print('2: '+ str(lt.getElement(Elements, 1)[prop]))
+    print('3: '+ str(lt.getElement(Elements, 2)[prop]))
 
 
 
@@ -115,9 +116,9 @@ while True:
         print('Artistas cargados ' + str(lt.size(catalog['artists'])))
         
         print('úlitmas 3 obras cargadas: ')
-        print3LastElements(controller.get3LastElements(catalog['artworks']))
+        print3LastElements(controller.get3LastElements(catalog['artworks']),'dateacquired')
         print('últimos 3 artistas cargados: ')
-        print3LastElements(controller.get3LastElements(catalog['artists']))
+        print3LastElements(controller.get3LastElements(catalog['artists']),'name')
         printEspacio()
         
         
