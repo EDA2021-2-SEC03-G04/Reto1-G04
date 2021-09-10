@@ -38,15 +38,16 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog(): 
+def newCatalog(datatype): 
     """
     Inicializa el catálogo de obras de arte. Crea una lista vacia para guardar
     todas las obras, adicionalmente, crea una lista vacia para los artistas.Retorna el catalogo inicializado.
     """
+
     catalog={'artworks': None, 'artists': None}
 
-    catalog['artworks']=lt.newList()
-    catalog['artists']=lt.newList('ARRAY_LIST', cmpfunction=compareartists)
+    catalog['artworks']=lt.newList(datatype)
+    catalog['artists']=lt.newList(datatype, cmpfunction=compareartists)
 
     return catalog
 
@@ -86,7 +87,7 @@ def newArtwork(name,dateacquired):
         datelst=dateacquired.split('-')
         dateacquired2=datetime.date(int(datelst[0]),int(datelst[1]),int(datelst[2]))
     else:
-        dateacquired2=datetime.date(1,1,1)
+        dateacquired2=datetime.date(10,9,2021)
     
 
 
@@ -217,6 +218,17 @@ def compareartists(artistname1,artist):
     if (artistname1.lower() in artist['name'].lower()):
         return 0
     return -1
+
+def cmpArtworkByDateAcquired(artwork1,artwork2): 
+    """
+    Devuelve verdadero (True) si el 'DateAcquired' de artwork1 es menores que el de artwork2
+    Args:
+    artwork1: informacion de la primera obra que incluye su valor 'DateAcquired'
+    artwork2: informacion de la segunda obra que incluye su valor 'DateAcquired'
+    """
+
+    return artwork1 < artwork2
+
 
 # Funciones de ordenamiento
 

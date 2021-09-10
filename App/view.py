@@ -56,11 +56,11 @@ def printEspacio():
     print("")
 
 
-def initCatalog():
+def initCatalog(datatype):
     """
     Inicializa el catalogo de obras
     """
-    return controller.initCatalog()
+    return controller.initCatalog(datatype)
 
 
 def loadData(catalog):
@@ -107,9 +107,11 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
 
+        datatype=input('Seleccione el tipo de tipo de estructura para los datos (ARRAY_LIST, LINKED_LIST)')
+
         printEspacio()
         print("Cargando información de los archivos ....")
-        catalog=initCatalog()
+        catalog=initCatalog(datatype)
         loadData(catalog)
 
         print('Obras de arte cargadas ' + str(lt.size(catalog['artworks'])))
