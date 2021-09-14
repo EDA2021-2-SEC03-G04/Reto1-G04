@@ -24,6 +24,7 @@ import config as cf
 from DISClib.ADT import list as lt
 import model
 import csv
+import datetime
 
 
 """
@@ -60,7 +61,7 @@ def loadArtworks(catalog):
     """
     Carga las obras de arte del archivo.  .
     """
-    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-large.csv'
+    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-small.csv'
     input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
@@ -69,7 +70,7 @@ def loadArtists(catalog):
     """
     Carga los artistas archivo.  .
     """
-    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-large.csv'
+    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-small.csv'
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -95,3 +96,29 @@ def artistasCronologico(lista, inicio, final):
     """
     ArtistasCrono = model.artistasCronologico(lista, inicio, final)
     return ArtistasCrono
+
+
+def obrasCronologicoacq(lista,inicio,final,metodo):
+    """
+    Retorna las obras adquiridas enre las dos fechas utilizando el algoritmo de ordenamiento metodo
+    """
+    if inicio:
+        datelst=inicio.split('-')
+        inicio2=datetime.date(int(datelst[0]),int(datelst[1]),int(datelst[2]))
+    else:
+        print('ERROR, INGRESE UN FORMATO DE FECHA INICIAL ADECUADO')
+    
+    if final:
+        datelst2=inicio.split('-')
+        final2=datetime.date(int(datelst2[0]),int(datelst2[1]),int(datelst2[2]))
+    else:
+        print('ERROR, INGRESE UN FORMATO DE FECHA FINAL ADECUADO')
+    
+    if not(metodo=='MergeSort' or metodo=='QuickSort'or metodo=='ShellSort'or metodo=='InsertionSort'):
+        print('ERROR, INGRESE UN FORMATO DE ALGORITMO ADECUADO')
+
+
+
+
+    ObrasCrono=model.obrasCronologicoacq(lista,inicio2,final2,metodo)
+    return ObrasCrono

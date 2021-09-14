@@ -89,6 +89,26 @@ def printArtistasCrono(lista):
 
 
 
+def printObrasCronoacq(lista):
+    """
+    imprime la cantidad de obras adquiridas en un rango de años
+    """
+    cantidad = lt.size(lista)
+    print("Hay " + str(cantidad) + " obras adquiridas en el rago seleccioando")
+    print()
+    print("Top 3 mas jovenes: ")
+    for x in range(3):
+        elemento = lt.getElement(lista, x)
+        print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"])
+
+    print()
+    print("Top 3 mas viejos: ")
+    for x in range(3):
+        elemento = lt.getElement(lista, cantidad - x)
+        print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"])
+
+
+
 
 def print3LastElements(Elements,prop):
     '''
@@ -121,9 +141,9 @@ while True:
         print('Obras de arte cargadas ' + str(lt.size(catalog['artworks'])))
         print('Artistas cargados ' + str(lt.size(catalog['artists'])))
         
-        print('úlitmas 3 obras cargadas: ')
-        print3LastElements(controller.get3LastElements(catalog['artworks']),'dateacquired')
-        print('últimos 3 artistas cargados: ')
+        print('Úlitmas 3 obras cargadas: ')
+        print3LastElements(controller.get3LastElements(catalog['artworks']),'name')
+        print('Últimos 3 artistas cargados: ')
         print3LastElements(controller.get3LastElements(catalog['artists']),'name')
         printEspacio()
         
@@ -133,8 +153,9 @@ while True:
     elif int(inputs[0]) == 2:
 
         printEspacio()
-        Año_inicial = int(input("desde que año quieres buscar?: "))
-        Año_fin = int(input("hasta que año quieres buscar?: "))
+        Año_inicial = int(input("Desde que año quieres buscar?: "))
+        Año_fin = int(input("Hasta que año quieres buscar?: "))
+        
 
         cantidadArtistas = controller.artistasCronologico(catalog, Año_inicial, Año_fin)
         printArtistasCrono(cantidadArtistas)
@@ -143,8 +164,16 @@ while True:
         
 
     elif int(inputs[0]) == 3:
-        fecha_inicial = input("desde que fecha quieres buscar?(AAAA-MM-DD): ")
-        fecha_fin = input("hasta que fecha quieres buscar?(AAAA-MM-DD): ")
+        FechaInicial = input("desde que fecha quieres buscar?(AAAA-MM-DD): ")
+        FechaFin = input("hasta que fecha quieres buscar?(AAAA-MM-DD): ")
+        MetodoSort=input('Qué algoritmo de ordenamiento desea utilizar: (InsertionSort, ShellSort, MergeSort, QuickSort)')
+
+        CantidadObras=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin,MetodoSort)
+        printObrasCronoacq(CantidadObras)
+        printEspacio()
+
+
+
 
     elif int(inputs[0]) == 4:
         nombre = input("de que artista deseas buscar?: ")

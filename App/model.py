@@ -27,7 +27,12 @@
 
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import shellsort as shsort
+from DISClib.Algorithms.Sorting import insertionsort as insort
+from DISClib.Algorithms.Sorting import mergesort as mrgsort
+from DISClib.Algorithms.Sorting import quicksort as qcksort
+
+
 assert cf
 import datetime
 
@@ -158,9 +163,48 @@ def artistasCronologico(lista, inicio, final):
             agregar = {"nombre" : nombre, "edad" : edad, "muerte" : muerte, "genero" : genero, "nacionalidad" : nacionalidad}
             lt.addLast(retorno, agregar)
     
-    sa.sort(retorno, compArtistasByBegindate)
+    shsort.sort(retorno, compArtistasByBegindate)
 
     return retorno
+
+def obrasCronologicoacq(lista,inicio,final,metodo): 
+    """
+    Retorna una lista con las obras ordenadas por fecha de adquisición 
+    """
+    obras = lista["artworks"]
+    retorno = lt.newList()
+
+
+    for x in range(lt.size(obras)):
+
+        grupo = lt.getElement(obras, x)
+        dateacquired = grupo["dateacquired"]
+        name = grupo["name"]
+        medium = grupo["medium"]
+        dimensions = grupo["dimensions"]
+        
+
+        #if  dateacquired >= inicio and dateacquired <= final:
+        if True: 
+            
+            agregar = {"name" : name, "dateacquired" : dateacquired, "medium" : medium, "dimensions" : dimensions}
+            lt.addLast(retorno, agregar)
+    
+    
+    if metodo=='ShellSort':
+        shsort.sort(retorno, cmpArtworkByDateAcquired)
+    elif metodo=='InsertionSort':
+        insort.sort(retorno, cmpArtworkByDateAcquired)
+    elif metodo=='MergeSort':
+        mrgsort.sort(retorno, cmpArtworkByDateAcquired)
+    else:
+        qcksort.sort(retorno,cmpArtworkByDateAcquired)
+    
+
+
+    return retorno
+
+
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -180,8 +224,9 @@ def cmpArtworkByDateAcquired(artwork1,artwork2):
     artwork1: informacion de la primera obra que incluye su valor 'DateAcquired'
     artwork2: informacion de la segunda obra que incluye su valor 'DateAcquired'
     """
+    return artwork1['dateacquired']<artwork2['dateacquired']
 
-    return artwork1 < artwork2
+    
 
 def compArtistasByBegindate(art1, art2):
     """
