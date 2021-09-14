@@ -73,15 +73,19 @@ def printArtistasCrono(lista):
     """
     imprime el numero de artistas en un rango de años
     """
-    print("EL numero de artistas en este rango es: " + str(lista[0]))
-    print("Top artistas jovenes:")
-    print("1) " + lista[1][1] + " nacidos en " + str(lista[1][0]))
-    print("2) " + lista[2][1] + " nacidos en " + str(lista[2][0]))
-    print("3) " + lista[3][1] + " nacidos en " + str(lista[3][0]))
-    print("Top artistas mayores:")
-    print("1) " + lista[4][1] + " nacidos en " + str(lista[4][0]))
-    print("2) " + lista[5][1] + " nacidos en " + str(lista[5][0]))
-    print("3) " + lista[5][1] + " nacidos en " + str(lista[6][0]))
+    cantidad = lt.size(lista)
+    print("Hay " + str(cantidad) + " artistas en el rago seleccioando")
+    print()
+    print("Top 3 mas jovenes: ")
+    for x in range(3):
+        elemento = lt.getElement(lista, x)
+        print(str(x+1) + ") el artista: " + elemento["nombre"] + " nacido en: " + str(elemento["edad"]) + " de nacionalidad: " + elemento["nacionalidad"] + " y de genero: " +  elemento["genero"])
+
+    print()
+    print("Top 3 mas viejos: ")
+    for x in range(3):
+        elemento = lt.getElement(lista, cantidad - x)
+        print(str(x+1) + ") el artista: " + elemento["nombre"] + " nacido en: " + str(elemento["edad"]) + " de nacionalidad: " + elemento["nacionalidad"] + " y de genero: " +  elemento["genero"])
 
 
 

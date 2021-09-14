@@ -87,7 +87,7 @@ def newArtwork(name,dateacquired,constituentid,date,medium,dimensions,department
         datelst=dateacquired.split('-')
         dateacquired2=datetime.date(int(datelst[0]),int(datelst[1]),int(datelst[2]))
     else:
-        dateacquired2=datetime.date(10,9,2021)
+        dateacquired2=datetime.date(1,1,1)
     
 
 
@@ -135,17 +135,13 @@ def get3LastElements(lista):
 
 
 def artistasCronologico(lista, inicio, final):
+    """
+    Retorna una lista con los artistas ordenados por epoca
+    """
 
     artistas = lista["artists"]
     cont = 0
-
-    joven1 = [9999, ""] # edad, nombre
-    joven2 = [9999, ""]
-    joven3 = [9999, ""]
-
-    mayor1 = [0, ""]
-    mayor2 = [0, ""]
-    mayor3 = [0, ""]
+    retorno = lt.newList()
 
 
     for x in range(lt.size(artistas)):
@@ -153,72 +149,18 @@ def artistasCronologico(lista, inicio, final):
         grupo = lt.getElement(artistas, x)
         edad = int(grupo["begindate"])
         nombre = grupo["name"]
+        muerte = int(grupo["enddate"])
+        genero = grupo["gender"]
+        nacionalidad = grupo["nationality"]
 
-        if edad != 0 and edad >= inicio and edad <= final:
-            cont += 1
-
-            # comparacion joven
-
-            if edad < joven3[0]:
-                if edad < joven2[0]:
-                    if edad < joven1[0]:
-                        cambio1 = joven1[0] #cambio de top
-                        cambio2 = joven2[0]
-                        cambio1Nom = joven1[1]
-                        cambio2Nom = joven2[1]
-
-                        joven1[0] = edad
-                        joven1[1] = nombre
-
-                        joven2[0] = cambio1
-                        joven2[1] = cambio1Nom
-
-                        joven3[0] = cambio2
-                        joven3[1] = cambio2Nom
-                    else:
-                        cambio = joven2[0] #cambio entre 2 y 3
-                        cambioNom = joven2[1]
-
-                        joven2[0] = edad
-                        joven2[1] = nombre
-                        joven3[0] = cambio 
-                        joven3[1] = cambioNom
-                else:
-                    joven3[0] = edad
-                    joven3[1] = nombre 
+        if edad != 0 and edad != None and edad >= inicio and edad <= final:
             
-            # comparacion mayores
+            agregar = {"nombre" : nombre, "edad" : edad, "muerte" : muerte, "genero" : genero, "nacionalidad" : nacionalidad}
+            lt.addLast(retorno, agregar)
+    
+    sa.sort(retorno, compArtistasByBegindate)
 
-            if edad > mayor3[0]:
-                if edad > mayor2[0]:
-                    if edad > mayor1[0]:
-                        cambio1 = mayor1[0] #cambio de top
-                        cambio2 = mayor2[0]
-                        cambio1Nom = mayor1[1]
-                        cambio2Nom = mayor2[1]
-
-                        mayor1[0] = edad
-                        mayor1[1] = nombre
-
-                        mayor2[0] = cambio1
-                        mayor2[1] = cambio1Nom
-
-                        mayor3[0] = cambio2
-                        mayor3[1] = cambio2Nom
-                    else:
-                        cambio = mayor2[0] #cambio entre 2 y 3
-                        cambioNom = mayor2[1]
-
-                        mayor2[0] = edad
-                        mayor2[1] = nombre
-                        mayor3[0] = cambio 
-                        mayor3[1] = cambioNom
-                else:
-                    mayor3[0] = edad
-                    mayor3[1] = nombre 
-
-        
-    return [cont, joven1, joven2, joven3, mayor1, mayor2, mayor3]
+    return retorno
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -240,6 +182,12 @@ def cmpArtworkByDateAcquired(artwork1,artwork2):
     """
 
     return artwork1 < artwork2
+
+def compArtistasByBegindate(art1, art2):
+    """
+    compara artistas por su fecha de nacmiento 
+    """
+    return art1["edad"] < art2["edad"]
 
 
 # Funciones de ordenamiento
