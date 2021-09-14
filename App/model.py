@@ -58,14 +58,14 @@ def newCatalog(datatype):
 
 def addArtwork(catalog,artwork): 
     #Se adiciona la obra  a la lista de obras
-    new=newArtwork(artwork['Title'],artwork['DateAcquired'])
+    new=newArtwork(artwork['Title'],artwork['DateAcquired'],artwork['ConstituentID'],artwork['Date'],artwork['Medium'],artwork['Dimensions'],artwork['Department'],artwork['CreditLine'],artwork['Classification'])
     lt.addLast(catalog['artworks'],new)
     
 
 
 def addArtist(catalog,artist): 
     #Se adiciona el artista  a la lista de artistas
-    new=newArtist(artist['DisplayName'],artist['BeginDate'],artist['EndDate'])
+    new=newArtist(artist['DisplayName'],artist['BeginDate'],artist['EndDate'],artist['Nationality'],artist['Gender'],artist['ConstituentID'])
 
     lt.addLast(catalog['artists'],new)
    
@@ -76,7 +76,7 @@ def addArtist(catalog,artist):
 
 # Funciones para creacion de datos
 
-def newArtwork(name,dateacquired):
+def newArtwork(name,dateacquired,constituentid,date,medium,dimensions,department,creditline,classification):
     '''
     Crea un nuevo objeto de obra de arte con atributos de nombre, fecha de adquisición 
     '''
@@ -92,19 +92,31 @@ def newArtwork(name,dateacquired):
 
 
 
-    artwork={'name':'','dateacquired':''}
+    artwork={'name':'','dateacquired':'','constituentid':'','date':'','medium':'','dimensions':'','department':'','creditline':'','classification':''}
     artwork['name']=name
     artwork['dateacquired']=dateacquired2
+    artwork['constituentid']=constituentid
+    artwork['date']=date
+    artwork['medium']=medium
+    artwork['dimensions']=dimensions
+    artwork['department']=department
+    artwork['creditline']=creditline
+    artwork['classification']=classification 
+
+
     return artwork
 
-def newArtist(name,begindate,enddate):
+def newArtist(name,begindate,enddate,nationality,gender,constituentid):
     '''
     Crea un nuevo objeto de obra de artista con atributos de nombre,fecha de inicio, fecha final
     '''
-    artist={'name':'','begindate':'','enddate':''}
+    artist={'name':'','begindate':'','enddate':'','nationality':'','gender':'','constituentid':''}
     artist['name']=name
     artist['begindate']=begindate
     artist['enddate']=enddate
+    artist['nationality']=nationality
+    artist['gender']=gender
+    artist['constituentid']=constituentid
     
 
     return artist
