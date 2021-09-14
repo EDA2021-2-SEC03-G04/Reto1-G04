@@ -31,6 +31,7 @@ from DISClib.Algorithms.Sorting import shellsort as shsort
 from DISClib.Algorithms.Sorting import insertionsort as insort
 from DISClib.Algorithms.Sorting import mergesort as mrgsort
 from DISClib.Algorithms.Sorting import quicksort as qcksort
+import time
 
 
 assert cf
@@ -184,13 +185,13 @@ def obrasCronologicoacq(lista,inicio,final,metodo):
         dimensions = grupo["dimensions"]
         
 
-        #if  dateacquired >= inicio and dateacquired <= final:
-        if True: 
+        if  dateacquired >= inicio and dateacquired <= final:
+        
             
             agregar = {"name" : name, "dateacquired" : dateacquired, "medium" : medium, "dimensions" : dimensions}
             lt.addLast(retorno, agregar)
     
-    
+    StartTime=time.process_time()
     if metodo=='ShellSort':
         shsort.sort(retorno, cmpArtworkByDateAcquired)
     elif metodo=='InsertionSort':
@@ -199,7 +200,10 @@ def obrasCronologicoacq(lista,inicio,final,metodo):
         mrgsort.sort(retorno, cmpArtworkByDateAcquired)
     else:
         qcksort.sort(retorno,cmpArtworkByDateAcquired)
-    
+    StopTime=time.process_time()
+    TimeMseg=(StopTime-StartTime)*1000
+
+    print(f'El ordenamiento {metodo} tardó {TimeMseg} miliseg')
 
 
     return retorno

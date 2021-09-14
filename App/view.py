@@ -94,6 +94,7 @@ def printObrasCronoacq(lista):
     imprime la cantidad de obras adquiridas en un rango de años
     """
     cantidad = lt.size(lista)
+    printEspacio()
     print("Hay " + str(cantidad) + " obras adquiridas en el rago seleccioando")
     print()
     print("Top 3 mas jovenes: ")
@@ -153,8 +154,8 @@ while True:
     elif int(inputs[0]) == 2:
 
         printEspacio()
-        Año_inicial = int(input("Desde que año quieres buscar?: "))
-        Año_fin = int(input("Hasta que año quieres buscar?: "))
+        Año_inicial = int(input("Desde que año quieres buscar?:  "))
+        Año_fin = int(input("Hasta que año quieres buscar?:  "))
         
 
         cantidadArtistas = controller.artistasCronologico(catalog, Año_inicial, Año_fin)
@@ -164,9 +165,10 @@ while True:
         
 
     elif int(inputs[0]) == 3:
-        FechaInicial = input("desde que fecha quieres buscar?(AAAA-MM-DD): ")
-        FechaFin = input("hasta que fecha quieres buscar?(AAAA-MM-DD): ")
-        MetodoSort=input('Qué algoritmo de ordenamiento desea utilizar: (InsertionSort, ShellSort, MergeSort, QuickSort)')
+        FechaInicial = input("desde que fecha quieres buscar?(AAAA-MM-DD):   ")
+        FechaFin = input("hasta que fecha quieres buscar?(AAAA-MM-DD):   ")
+        MetodoSort=input('Qué algoritmo de ordenamiento desea utilizar: (InsertionSort, ShellSort, MergeSort, QuickSort)   ')
+        printEspacio()
 
         CantidadObras=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin,MetodoSort)
         printObrasCronoacq(CantidadObras)

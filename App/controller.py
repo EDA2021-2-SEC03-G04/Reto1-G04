@@ -109,7 +109,7 @@ def obrasCronologicoacq(lista,inicio,final,metodo):
         print('ERROR, INGRESE UN FORMATO DE FECHA INICIAL ADECUADO')
     
     if final:
-        datelst2=inicio.split('-')
+        datelst2=final.split('-')
         final2=datetime.date(int(datelst2[0]),int(datelst2[1]),int(datelst2[2]))
     else:
         print('ERROR, INGRESE UN FORMATO DE FECHA FINAL ADECUADO')
