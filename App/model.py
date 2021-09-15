@@ -176,7 +176,7 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista):
     retorno = lt.newList()
 
 
-    for x in range(lt.size(obras)//(1/sizesublista)):
+    for x in range(round(lt.size(obras)*sizesublista)):
 
         grupo = lt.getElement(obras, x)
         dateacquired = grupo["dateacquired"]
