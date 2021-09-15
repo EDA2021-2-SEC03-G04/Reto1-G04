@@ -168,7 +168,7 @@ def artistasCronologico(lista, inicio, final):
 
     return retorno
 
-def obrasCronologicoacq(lista,inicio,final,metodo): 
+def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista): 
     """
     Retorna una lista con las obras ordenadas por fecha de adquisición 
     """
@@ -176,7 +176,7 @@ def obrasCronologicoacq(lista,inicio,final,metodo):
     retorno = lt.newList()
 
 
-    for x in range(lt.size(obras)):
+    for x in range(lt.size(obras)//(1/sizesublista)):
 
         grupo = lt.getElement(obras, x)
         dateacquired = grupo["dateacquired"]

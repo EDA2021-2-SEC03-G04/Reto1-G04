@@ -98,7 +98,7 @@ def artistasCronologico(lista, inicio, final):
     return ArtistasCrono
 
 
-def obrasCronologicoacq(lista,inicio,final,metodo):
+def obrasCronologicoacq(lista,inicio,final,metodo,sizesublist):
     """
     Retorna las obras adquiridas enre las dos fechas utilizando el algoritmo de ordenamiento metodo
     """
@@ -116,9 +116,10 @@ def obrasCronologicoacq(lista,inicio,final,metodo):
     
     if not(metodo=='MergeSort' or metodo=='QuickSort'or metodo=='ShellSort'or metodo=='InsertionSort'):
         print('ERROR, INGRESE UN FORMATO DE ALGORITMO ADECUADO')
+        
 
 
 
 
-    ObrasCrono=model.obrasCronologicoacq(lista,inicio2,final2,metodo)
+    ObrasCrono=model.obrasCronologicoacq(lista,inicio2,final2,metodo,sizesublist)
     return ObrasCrono

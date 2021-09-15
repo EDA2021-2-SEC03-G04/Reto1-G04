@@ -168,9 +168,10 @@ while True:
         FechaInicial = input("desde que fecha quieres buscar?(AAAA-MM-DD):   ")
         FechaFin = input("hasta que fecha quieres buscar?(AAAA-MM-DD):   ")
         MetodoSort=input('Qué algoritmo de ordenamiento desea utilizar: (InsertionSort, ShellSort, MergeSort, QuickSort)   ')
+        SizeSubLista=input('Eliga el porecentaje de la muestra (entre 0 y 1):  ')
         printEspacio()
 
-        CantidadObras=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin,MetodoSort)
+        CantidadObras=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin,MetodoSort,float(SizeSubLista))
         printObrasCronoacq(CantidadObras)
         printEspacio()
 
