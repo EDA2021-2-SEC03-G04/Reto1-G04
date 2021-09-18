@@ -244,8 +244,13 @@ def ObrasArtista(catalog, nombre):
 
     #Encuentra cuál es la técnica más usada y cúantas técnicas hay
     TotalTecnicas=len(Tecnicas)
-    maxim=max(Tecnicas.values())
-    TecnicaMasUsada=list(Tecnicas.keys())[list(Tecnicas.values()).index(maxim)]
+    if TotalTecnicas==0:
+        maxim=0
+        TecnicaMasUsada=''
+
+    else:
+        maxim=max(Tecnicas.values())
+        TecnicaMasUsada=str(list(Tecnicas.keys())[list(Tecnicas.values()).index(maxim)])
 
     
     #Crea la lista de obras del artista con la técnica más usada
@@ -257,7 +262,7 @@ def ObrasArtista(catalog, nombre):
     TotalObras=lt.size(ObrasArtista)
 
 
-    return TotalObras,TotalTecnicas,TecnicaMasUsada, ObrasArtistaTecnica
+    return TotalObras,TotalTecnicas-1,TecnicaMasUsada, ObrasArtistaTecnica
 
     
 

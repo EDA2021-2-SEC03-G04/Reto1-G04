@@ -123,15 +123,26 @@ def print3LastElements(Elements,prop):
     print('2: '+ str(lt.getElement(Elements, 1)[prop]))
     print('3: '+ str(lt.getElement(Elements, 2)[prop]))
 
+
+
 def printObrasPorTecnica(TotalObras,TotalTecnicas,TecnicaMasUsada,ObrasArtistaTecnica,nombre): 
     printEspacio()
-    print('El artista  ' + str(nombre) + ' Tiene un total de  ' + str(TotalObras) + 'obras' 'y un total de ' + str(TotalTecnicas) + '\n \n')
-    print('La técnia más utilizada por '+ str(nombre) + ' es ' + str(TecnicaMasUsada) + '\n \n')
+    if TecnicaMasUsada=='': 
+        TecnicaMasUsada='No hay suficiente información '
+
+    if TotalTecnicas==-1:
+        TotalTecnicas=0
+
+        
+    print('El artista  ' + str(nombre) + ' Tiene un total de  ' + str(TotalObras) + ' obras  y un total de ' + str(TotalTecnicas) + ' distintas   técnicas utilizadas \n \n')
+    print('La técnica más utilizada por '+ str(nombre) + ' es: ' + str(TecnicaMasUsada))
+    print()
+
     print('Obras con la técnica más utilizada: ')
     for i in range(lt.size(ObrasArtistaTecnica)): 
         elemento=lt.getElement(ObrasArtistaTecnica,i)
-        print(str(i+1) + ')' + ' la obra: ' + str(elemento['name']) + 'con fecha : '  + str(elemento['date']) + 'y dimensiones : ' + str(elemento['dimensions']))
-
+        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + 'y técnica : ' + str(elemento['medium']))
+    printEspacio()
     
 
 """
