@@ -123,3 +123,14 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublist):
 
     ObrasCrono=model.obrasCronologicoacq(lista,inicio2,final2,metodo,sizesublist)
     return ObrasCrono
+
+
+def ObrasArtista(catalog,nombre): 
+    """
+    Retorna las obras de un artista
+    """
+    if nombre=='':
+        print('ERROR, INGRESE UN NOMBRE DE ARTISTA VALIDO ')
+    else:
+        return model.ObrasArtista(catalog, nombre)
+

@@ -164,7 +164,7 @@ def artistasCronologico(lista, inicio, final):
             agregar = {"nombre" : nombre, "edad" : edad, "muerte" : muerte, "genero" : genero, "nacionalidad" : nacionalidad}
             lt.addLast(retorno, agregar)
     
-    shsort.sort(retorno, compArtistasByBegindate)
+    mrgsort.sort(retorno, compArtistasByBegindate)
 
     return retorno
 
@@ -183,6 +183,7 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista):
         name = grupo["name"]
         medium = grupo["medium"]
         dimensions = grupo["dimensions"]
+        
         
 
         if  dateacquired >= inicio and dateacquired <= final:
@@ -207,6 +208,42 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista):
 
 
     return retorno
+
+
+def ObrasArtista(catalog, nombre):
+
+    
+    Obras=catalog['artworks']
+    Artistas=catalog['artists']
+
+    #Obtiene el constituent ID del artista buscado
+    Artista=lt.getElement(Artistas,lt.isPresent(Artistas,nombre))
+    Constid=Artista['constituentid']
+    ObrasArtistaTecnica=lt.newList()
+    ObrasArtista=lt.newList()
+    Contador=0
+    Tecnicas={}
+
+    for i in range(lt.size(Obras)): 
+        Obra=lt.getElement(Obras,i)
+
+        TecnicaObra=Obra['medium']
+        
+        ConstidObra=Obra['constituentid']
+        ConstidObra=ConstidObra.translate({ord(i): None for i in '[]'})
+        ConstidObra=ConstidObra.split(',')
+
+        if Constid in ConstidObra:  
+            Contador +=1
+            Tecnicas[TecnicaObra] = Tecnicas.get(i, 0) + 1
+            lt.addLast(ObrasArtista,Obra)
+    
+    TecnicaMasUsada=
+    return ObrasArtista 
+
+    
+
+
 
 
 

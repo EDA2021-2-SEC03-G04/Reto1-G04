@@ -101,6 +101,7 @@ def printObrasCronoacq(lista):
     for x in range(3):
         elemento = lt.getElement(lista, x)
         print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"])
+        
 
     print()
     print("Top 3 mas viejos: ")
@@ -122,7 +123,9 @@ def print3LastElements(Elements,prop):
     print('2: '+ str(lt.getElement(Elements, 1)[prop]))
     print('3: '+ str(lt.getElement(Elements, 2)[prop]))
 
-
+def printObrasPorTecnica(lista): 
+    printEspacio()
+    
 
 """
 Menu principal
@@ -180,6 +183,9 @@ while True:
 
     elif int(inputs[0]) == 4:
         nombre = input("de que artista deseas buscar?: ")
+        ObrasArtista=controller.ObrasArtista(catalog,nombre)
+        printObrasPorTecnica(ObrasArtista)
+
 
     elif int(inputs[0]) == 5:
         print("Cargando...")
