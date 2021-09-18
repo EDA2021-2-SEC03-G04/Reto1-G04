@@ -211,35 +211,53 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista):
 
 
 def ObrasArtista(catalog, nombre):
+    """
+    Retorna el total de obras de un artista, el total de técnicas usadas por el artista, la técnica más usada y una lista con las obras de dicha técnica
+    """
 
-    
+    #Toma todas las obras y artistas
     Obras=catalog['artworks']
     Artistas=catalog['artists']
 
     #Obtiene el constituent ID del artista buscado
     Artista=lt.getElement(Artistas,lt.isPresent(Artistas,nombre))
     Constid=Artista['constituentid']
+    #Lista Para guardar las obras de la tecinca más usada por el artista buscado
     ObrasArtistaTecnica=lt.newList()
+    #Lista de todas las Obras del artista buscado
     ObrasArtista=lt.newList()
-    Contador=0
+    #Diccionario para contar cuantas obras hay de cada técnica
     Tecnicas={}
 
+    #Recorre todas las obras para ver cuales son del artista buscado
     for i in range(lt.size(Obras)): 
         Obra=lt.getElement(Obras,i)
-
+        #Procesamiento del string de constituent id (una obra puede tener varios artistas)
         TecnicaObra=Obra['medium']
-        
         ConstidObra=Obra['constituentid']
         ConstidObra=ConstidObra.translate({ord(i): None for i in '[]'})
         ConstidObra=ConstidObra.split(',')
-
+        #Agrega las listas del artista a ObrasArtista
         if Constid in ConstidObra:  
-            Contador +=1
             Tecnicas[TecnicaObra] = Tecnicas.get(i, 0) + 1
             lt.addLast(ObrasArtista,Obra)
+
+    #Encuentra cuál es la técnica más usada y cúantas técnicas hay
+    TotalTecnicas=len(Tecnicas)
+    maxim=max(Tecnicas.values())
+    TecnicaMasUsada=list(Tecnicas.keys())[list(Tecnicas.values()).index(maxim)]
+
     
-    TecnicaMasUsada=
-    return ObrasArtista 
+    #Crea la lista de obras del artista con la técnica más usada
+    for i in range(lt.size(ObrasArtista)):
+        Obra=lt.getElement(ObrasArtista,i) 
+        if Obra['medium']==TecnicaMasUsada:
+            lt.addLast(ObrasArtistaTecnica,Obra)
+
+    TotalObras=lt.size(ObrasArtista)
+
+
+    return TotalObras,TotalTecnicas,TecnicaMasUsada, ObrasArtistaTecnica
 
     
 

@@ -123,8 +123,15 @@ def print3LastElements(Elements,prop):
     print('2: '+ str(lt.getElement(Elements, 1)[prop]))
     print('3: '+ str(lt.getElement(Elements, 2)[prop]))
 
-def printObrasPorTecnica(lista): 
+def printObrasPorTecnica(TotalObras,TotalTecnicas,TecnicaMasUsada,ObrasArtistaTecnica,nombre): 
     printEspacio()
+    print('El artista  ' + str(nombre) + ' Tiene un total de  ' + str(TotalObras) + 'obras' 'y un total de ' + str(TotalTecnicas) + '\n \n')
+    print('La técnia más utilizada por '+ str(nombre) + ' es ' + str(TecnicaMasUsada) + '\n \n')
+    print('Obras con la técnica más utilizada: ')
+    for i in range(lt.size(ObrasArtistaTecnica)): 
+        elemento=lt.getElement(ObrasArtistaTecnica,i)
+        print(str(i+1) + ')' + ' la obra: ' + str(elemento['name']) + 'con fecha : '  + str(elemento['date']) + 'y dimensiones : ' + str(elemento['dimensions']))
+
     
 
 """
@@ -183,8 +190,8 @@ while True:
 
     elif int(inputs[0]) == 4:
         nombre = input("de que artista deseas buscar?: ")
-        ObrasArtista=controller.ObrasArtista(catalog,nombre)
-        printObrasPorTecnica(ObrasArtista)
+        TotalObras,TotalTecincas,TecnicaMasUsada,ObrasArtistaTecnica=controller.ObrasArtista(catalog,nombre)
+        printObrasPorTecnica(TotalObras,TotalTecincas,TecnicaMasUsada,ObrasArtistaTecnica,nombre)
 
 
     elif int(inputs[0]) == 5:
