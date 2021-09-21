@@ -25,6 +25,7 @@
  """
 
 
+from os import defpath
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as shsort
@@ -64,7 +65,10 @@ def newCatalog(datatype):
 
 def addArtwork(catalog,artwork): 
     #Se adiciona la obra  a la lista de obras
-    new=newArtwork(artwork['Title'],artwork['DateAcquired'],artwork['ConstituentID'],artwork['Date'],artwork['Medium'],artwork['Dimensions'],artwork['Department'],artwork['CreditLine'],artwork['Classification'])
+    new=newArtwork(artwork['Title'],artwork['DateAcquired'],artwork['ConstituentID'],artwork['Date'],artwork['Medium'],artwork['Dimensions'],
+    artwork['Department'],artwork['CreditLine'],artwork['Classification'], artwork['Circumference (cm)'],artwork['Depth (cm)'],artwork['Diameter (cm)'],
+    artwork['Height (cm)'],artwork['Length (cm)'],artwork['Weight (kg)'],artwork['Width (cm)'])
+
     lt.addLast(catalog['artworks'],new)
     
 
@@ -82,23 +86,31 @@ def addArtist(catalog,artist):
 
 # Funciones para creacion de datos
 
-def newArtwork(name,dateacquired,constituentid,date,medium,dimensions,department,creditline,classification):
+def newArtwork(name,dateacquired,constituentid,date,medium,dimensions,department,creditline,classification,circumference,depth,diameter,height,length,weight,width):
     '''
     Crea un nuevo objeto de obra de arte con atributos de nombre, fecha de adquisición 
     '''
 
     #Separamos la string de la fecha de adquisición con '-' y lo convertimos a foramto datetime
-    #Si la entrada es vacia entonces se pone feha 1-1-1
+    #Si la entrada es vacia entonces se pone feha de hoy
     if dateacquired:
         datelst=dateacquired.split('-')
         dateacquired2=datetime.date(int(datelst[0]),int(datelst[1]),int(datelst[2]))
     else:
-        dateacquired2=datetime.date(1,1,1)
+        dateacquired2=datetime.date.today()
+
+    if date:
+        date=int(date)
+    else:
+        date=3000
+    
     
 
 
 
-    artwork={'name':'','dateacquired':'','constituentid':'','date':'','medium':'','dimensions':'','department':'','creditline':'','classification':''}
+    artwork={'name':'','dateacquired':'','constituentid':'','date':'','medium':'','dimensions':'','department':''
+    ,'creditline':'','classification':'','circumference':'','depth':'','diameter':'','height':'','length':'','weight':'','width':''}
+
     artwork['name']=name
     artwork['dateacquired']=dateacquired2
     artwork['constituentid']=constituentid
@@ -108,6 +120,14 @@ def newArtwork(name,dateacquired,constituentid,date,medium,dimensions,department
     artwork['department']=department
     artwork['creditline']=creditline
     artwork['classification']=classification 
+    artwork['circumference']=circumference
+    artwork['depth']=depth
+    artwork['diameter']=diameter
+    artwork['height']=height
+    artwork['length']=length
+    artwork['weight']=weight
+    artwork['width']=width
+
 
 
     return artwork
@@ -172,26 +192,30 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista):
     """
     Retorna una lista con las obras ordenadas por fecha de adquisición 
     """
+    #Lista con todas las obras
     obras = lista["artworks"]
+    #La lista que se va a retornar de obras en el rango deseado
     retorno = lt.newList()
 
-
+    #Recorre toda slas obras
     for x in range(round(lt.size(obras)*sizesublista)):
-
+        #Toma la obra
         grupo = lt.getElement(obras, x)
+        #Extrae los datos de la obra
         dateacquired = grupo["dateacquired"]
         name = grupo["name"]
         medium = grupo["medium"]
         dimensions = grupo["dimensions"]
         
         
-
+        #Chequea si la obra fue adquirida en el rango de fechas deseado
         if  dateacquired >= inicio and dateacquired <= final:
         
-            
+            #Agrega la obra a la lista a retornar
             agregar = {"name" : name, "dateacquired" : dateacquired, "medium" : medium, "dimensions" : dimensions}
             lt.addLast(retorno, agregar)
     
+    #Ordena la lista a retornar por fecha de adquisición
     StartTime=time.process_time()
     if metodo=='ShellSort':
         shsort.sort(retorno, cmpArtworkByDateAcquired)
@@ -328,6 +352,51 @@ def Nacionalidad_obras(catalog):
 
 
 
+def Transporte(catalog,depa): 
+
+    '''
+    Calcula el costo e inforación asociada a transportar un departamento del museo
+    '''
+    #Obtiene las obras del catalogo
+    Obras=catalog['artworks']
+    #Crea una nueva lista para las obras del departamento a transportar
+    ObrasDepto=lt.newList()
+    #Acumulación del precio de transporte por obra
+    TotalPrecio=0
+    #Acumulación del peso total de las obras
+    TotalPeso=0
+    #Recorre todas las obras del catálogo para ver si están en el departamento a transportar
+    for i in range(lt.size(Obras)):
+        #Obtiene la obra
+        Obra=lt.getElement(Obras,i)
+        #Revisa si la obra pertenece al departamento a transportar
+        if Obra['department'].lower()==depa.lower():
+            #Función que calcula el costo de transporte de una obra
+            costo=CalcularCosto(Obra)
+            #Función que calcula el peso de una obra
+            peso=CalcularPeso(Obra)
+            #Se le añade el atributo 'costo' a cada obra
+            Obra['cost']=costo
+            #Se acumulan el precio y el peso
+            TotalPrecio+=costo
+            TotalPeso+=peso
+            #Se añade la obra a la lista de obras del departamento buscado 
+            lt.addLast(ObrasDepto,Obra)
+
+    #Los ordena de forma DESCENDENTE por fecha en una lista y en la otra por costo de transporte
+    TransportePorCosto=mrgsort.sort(ObrasDepto,compPrecio)
+    TransportePorFecha=mrgsort.sort(ObrasDepto,compFecha)
+    #Calcula el total de obras del departamento 
+    TotalObras=lt.size(ObrasDepto)
+
+    return TotalObras, TotalPrecio,TotalPeso,TransportePorCosto, TransportePorFecha
+
+
+    
+
+        
+
+
 
 
 
@@ -368,6 +437,41 @@ def compNacionalidadByCantidad(coso1, coso2):
     """
     return coso1["cantidad"] > coso2["cantidad"]
 
+def compPrecio(obra1,obra2):
+    '''
+    Compara por precio de transporte en orden descendente 
+    '''
+    return obra1['cost'] > obra2["cost"]
+
+def compFecha(obra1,obra2):
+    '''
+    Compara por precio de transporte en orden descendente 
+    '''
+    return int(obra1['date']) < int(obra2["date"])
+
+
+
 # Funciones de ordenamiento
 
+def CalcularCosto(Obra):
+
+    '''
+    Retorna el costo aproximado de transpotar una obra de arte
+    '''
+
+    circumference=Obra['circumference']
+    depth=Obra['depth']
+    diameter=Obra['diameter']
+    height=Obra['height']
+    lenght=Obra['length']
+    weight=Obra['weight']
+
+    return 1
+
+def CalcularPeso(Obra): 
+    '''
+    Retorna el peso aproximado de una obra 
+    '''
+
+    return 1
 

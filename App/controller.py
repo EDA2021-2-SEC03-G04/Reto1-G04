@@ -61,7 +61,7 @@ def loadArtworks(catalog):
     """
     Carga las obras de arte del archivo.  .
     """
-    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-small.csv'
+    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-large.csv'
     input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
@@ -70,7 +70,7 @@ def loadArtists(catalog):
     """
     Carga los artistas archivo.  .
     """
-    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-small.csv'
+    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-large.csv'
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -140,4 +140,14 @@ def Nacionalidad_obras(catalog):
     """
     lista = model.Nacionalidad_obras(catalog)
     return lista
+
+def Transporte(catalog,depa):
+    """
+    Retorna el total de obras a transportar, el precio, el peso, las 5 obras más costosas y las 5 más antiguas
+
+    """
+    res=model.Transporte(catalog,depa)
+    return res
+
+
 

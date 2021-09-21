@@ -174,6 +174,31 @@ def Print_nacionalidad_obras(lista):
         print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
 
     printEspacio()
+
+def printObrasTransporte(TotalObras, TotalPrecio, TotalPeso,TransportePorCosto, TransportePorFecha): 
+    printEspacio()
+    print('Hay un total de : ' + str(TotalObras) + ' obras por transportarse, con un precio total de transporte de: ' + str(TotalPrecio) + ' USD, por un peso de: ' + str(TotalPeso) + 'kg')
+    print( )
+    print('Las 5 obras más costosas por transportar son: ')
+    print()
+    for i in range(5):
+        elemento=lt.getElement(TransportePorCosto,i)
+        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + ', técnica : ' + str(elemento['medium'])+'y costo de transporte: ' + str(elemento['cost']))
+
+    print()
+    print()
+
+    print('Las 5 obras más antiguas para transportarse son: ')
+    print()
+    for i in range(5):
+        elemento=lt.getElement(TransportePorFecha,i)
+        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + ', técnica : ' + str(elemento['medium'])+'y costo de transporte: ' + str(elemento['cost']))
+
+
+
+
+    
+
     
 
 """
@@ -244,6 +269,9 @@ while True:
 
     elif int(inputs[0]) == 6:
         depa = input("Que departamento deseas transportar?: ")
+        TotalObras, TotalPrecio,TotalPeso, TransportePorCosto, TransportePorFecha=controller.Transporte(catalog,depa)
+        printObrasTransporte(TotalObras, TotalPrecio,TotalPeso,TransportePorCosto, TransportePorFecha)
+        
 
     elif int(inputs[0]) == 7:
         Año_inicial = input("desde que año inician las obras?: ")
