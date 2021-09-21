@@ -61,7 +61,7 @@ def loadArtworks(catalog):
     """
     Carga las obras de arte del archivo.  .
     """
-    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-large.csv'
+    artworksfile = cf.data_dir + 'MoMA/Artworks-utf8-small.csv'
     input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
@@ -70,7 +70,7 @@ def loadArtists(catalog):
     """
     Carga los artistas archivo.  .
     """
-    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-large.csv'
+    artistsfile = cf.data_dir + 'MoMA/Artists-utf8-small.csv'
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -98,7 +98,7 @@ def artistasCronologico(lista, inicio, final):
     return ArtistasCrono
 
 
-def obrasCronologicoacq(lista,inicio,final,metodo,sizesublist):
+def obrasCronologicoacq(lista,inicio,final):
     """
     Retorna las obras adquiridas enre las dos fechas utilizando el algoritmo de ordenamiento metodo
     """
@@ -114,14 +114,13 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublist):
     else:
         print('ERROR, INGRESE UN FORMATO DE FECHA FINAL ADECUADO')
     
-    if not(metodo=='MergeSort' or metodo=='QuickSort'or metodo=='ShellSort'or metodo=='InsertionSort'):
-        print('ERROR, INGRESE UN FORMATO DE ALGORITMO ADECUADO')
+    
         
 
 
 
 
-    ObrasCrono=model.obrasCronologicoacq(lista,inicio2,final2,metodo,sizesublist)
+    ObrasCrono=model.obrasCronologicoacq(lista,inicio2,final2)
     return ObrasCrono
 
 

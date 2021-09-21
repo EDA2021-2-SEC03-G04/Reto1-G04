@@ -188,17 +188,18 @@ def artistasCronologico(lista, inicio, final):
 
     return retorno
 
-def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista): 
+def obrasCronologicoacq(lista,inicio,final): 
     """
     Retorna una lista con las obras ordenadas por fecha de adquisición 
     """
     #Lista con todas las obras
     obras = lista["artworks"]
+    artistas=lista['artists']
     #La lista que se va a retornar de obras en el rango deseado
     retorno = lt.newList()
 
     #Recorre toda slas obras
-    for x in range(round(lt.size(obras)*sizesublista)):
+    for x in range(lt.size(obras)):
         #Toma la obra
         grupo = lt.getElement(obras, x)
         #Extrae los datos de la obra
@@ -206,32 +207,93 @@ def obrasCronologicoacq(lista,inicio,final,metodo,sizesublista):
         name = grupo["name"]
         medium = grupo["medium"]
         dimensions = grupo["dimensions"]
+        constid=grupo['constituentid']
         
         
         #Chequea si la obra fue adquirida en el rango de fechas deseado
         if  dateacquired >= inicio and dateacquired <= final:
         
             #Agrega la obra a la lista a retornar
-            agregar = {"name" : name, "dateacquired" : dateacquired, "medium" : medium, "dimensions" : dimensions}
+            agregar = {"name" : name, "dateacquired" : dateacquired, "medium" : medium, "dimensions" : dimensions,'constituentid':constid}
             lt.addLast(retorno, agregar)
     
     #Ordena la lista a retornar por fecha de adquisición
-    StartTime=time.process_time()
-    if metodo=='ShellSort':
-        shsort.sort(retorno, cmpArtworkByDateAcquired)
-    elif metodo=='InsertionSort':
-        insort.sort(retorno, cmpArtworkByDateAcquired)
-    elif metodo=='MergeSort':
-        mrgsort.sort(retorno, cmpArtworkByDateAcquired)
-    else:
-        qcksort.sort(retorno,cmpArtworkByDateAcquired)
-    StopTime=time.process_time()
-    TimeMseg=(StopTime-StartTime)*1000
+    
+    
+    mrgsort.sort(retorno, cmpArtworkByDateAcquired)
+    
 
-    print(f'El ordenamiento {metodo} tardó {TimeMseg} miliseg')
+    Top3V=lt.newList(cmpfunction=comparedicts)
+    Top3J=lt.newList(cmpfunction=comparedicts)
+
+    #Saca el artista del top 3 más viejos y jóvenes
+
+    tamaño=lt.size(retorno)
+    cont=0
+    i=0
+    while cont <3:
+        
+        nombre=''
+        Obra=lt.getElement(retorno,tamaño-i)
+        ConstidObra=Obra['constituentid']
+        ConstidObra=ConstidObra.translate({ord(z): None for z in '[]'})
+        ConstidObra=ConstidObra.split(',')
+
+        for j in range(lt.size(artistas)):
+            constid=lt.getElement(artistas,j)['constituentid']
+            if constid in ConstidObra:
+                nombre+=lt.getElement(artistas,j)['name']
+
+        if cont==0:
+            Obra['artistname']=nombre   
+            lt.addLast(Top3J,Obra)
+            cont+=1  
+
+        elif lt.getElement(Top3J,cont) != lt.getElement(Top3J,cont-1):
+            Obra['artistname']=nombre   
+            lt.addLast(Top3J,Obra)
+            cont+=1   
+        
+        i+=1     
+
+    cont=0
+    i=0
+    while cont<3:
+        
+        nombre=''
+        Obra2=lt.getElement(retorno,i)
+        ConstidObra=Obra2['constituentid']
+        ConstidObra=ConstidObra.translate({ord(z): None for z in '[]'})
+        ConstidObra=ConstidObra.split(',')
+
+        for j in range(lt.size(artistas)):
+            constid=lt.getElement(artistas,j)['constituentid']
+            if constid in ConstidObra:
+                nombre+=lt.getElement(artistas,j)['name']
+        if cont==0:
+            Obra['artistname']=nombre   
+            lt.addLast(Top3V,Obra)
+            cont+=1   
+        elif lt.getElement(Top3V,cont)!=lt.getElement(Top3V,cont-1):
+            Obra['artistname']=nombre   
+            lt.addLast(Top3V,Obra)
+            cont+=1  
+        i+=1     
+
+           
+       
 
 
-    return retorno
+    
+
+
+                
+
+
+    
+
+
+    return retorno,Top3J,Top3V
 
 
 def ObrasArtista(catalog, nombre):
@@ -360,7 +422,8 @@ def Transporte(catalog,depa):
     #Obtiene las obras del catalogo
     Obras=catalog['artworks']
     #Crea una nueva lista para las obras del departamento a transportar
-    ObrasDepto=lt.newList()
+    ObrasDepto1=lt.newList()
+    ObrasDepto2=lt.newList()
     #Acumulación del precio de transporte por obra
     TotalPrecio=0
     #Acumulación del peso total de las obras
@@ -381,15 +444,16 @@ def Transporte(catalog,depa):
             TotalPrecio+=costo
             TotalPeso+=peso
             #Se añade la obra a la lista de obras del departamento buscado 
-            lt.addLast(ObrasDepto,Obra)
+            lt.addLast(ObrasDepto1,Obra)
+            lt.addLast(ObrasDepto2,Obra)
 
     #Los ordena de forma DESCENDENTE por fecha en una lista y en la otra por costo de transporte
-    TransportePorCosto=mrgsort.sort(ObrasDepto,compPrecio)
-    TransportePorFecha=mrgsort.sort(ObrasDepto,compFecha)
+    mrgsort.sort(ObrasDepto1,compPrecio)
+    mrgsort.sort(ObrasDepto2,compFecha)
     #Calcula el total de obras del departamento 
-    TotalObras=lt.size(ObrasDepto)
+    TotalObras=lt.size(ObrasDepto1)
 
-    return TotalObras, TotalPrecio,TotalPeso,TransportePorCosto, TransportePorFecha
+    return TotalObras, TotalPrecio,TotalPeso,ObrasDepto1, ObrasDepto2
 
 
     
@@ -423,6 +487,10 @@ def cmpArtworkByDateAcquired(artwork1,artwork2):
     """
     return artwork1['dateacquired']<artwork2['dateacquired']
 
+def comparedicts(dict1,dict2):
+
+    return dict1==dict2
+
     
 
 def compArtistasByBegindate(art1, art2):
@@ -441,7 +509,7 @@ def compPrecio(obra1,obra2):
     '''
     Compara por precio de transporte en orden descendente 
     '''
-    return obra1['cost'] > obra2["cost"]
+    return float(obra1['cost']) > float(obra2["cost"])
 
 def compFecha(obra1,obra2):
     '''
@@ -459,19 +527,46 @@ def CalcularCosto(Obra):
     Retorna el costo aproximado de transpotar una obra de arte
     '''
 
-    circumference=Obra['circumference']
+   
     depth=Obra['depth']
-    diameter=Obra['diameter']
     height=Obra['height']
-    lenght=Obra['length']
     weight=Obra['weight']
+    width=Obra['width']
+    precio=0
+    if weight or (height and width) or (height and width and depth):
+        if weight:
+            precio1=float(weight)*72
+            precio=precio1
+        if (height and width):
+            precio2=(float(height)*float(width)*72)/(100**2)
+            precio=max(precio,precio2)
+        
+        if (height and width and depth):
+            precio3=(float(height)*float(width)*float(depth)*72)/(100**3)
+            precio=max(precio,precio3)
 
-    return 1
+        
+
+    else:
+         precio=42
+
+
+
+    
+
+
+
+    return precio
 
 def CalcularPeso(Obra): 
     '''
     Retorna el peso aproximado de una obra 
     '''
+    weight=Obra['weight']
 
-    return 1
+    if weight:
+        Peso=float(weight)
+    else:
+        Peso=0
+    return Peso
 

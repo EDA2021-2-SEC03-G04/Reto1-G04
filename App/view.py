@@ -36,6 +36,8 @@ operación solicitada
 """
 
 def printMenu():
+    print()
+    print()
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
     print("2- Consultar artistas cronologicamente") # R1
@@ -76,7 +78,7 @@ def printArtistasCrono(lista):
     cantidad = lt.size(lista)
     print("Hay " + str(cantidad) + " artistas en el rago seleccioando")
     print()
-    print("Top 3 mas jovenes: ")
+    print("Top 3 mas viejos: ")
     for x in range(3):
         elemento = lt.getElement(lista, x)
         print(str(x+1) + ") el artista: " + elemento["nombre"] + " nacido en: " + str(elemento["edad"]) + " de nacionalidad: " + elemento["nacionalidad"] + " y de genero: " +  elemento["genero"])
@@ -89,7 +91,7 @@ def printArtistasCrono(lista):
 
 
 
-def printObrasCronoacq(lista):
+def printObrasCronoacq(lista,Top3J,Top3V):
     """
     imprime la cantidad de obras adquiridas en un rango de años
     """
@@ -99,15 +101,15 @@ def printObrasCronoacq(lista):
     print()
     print("Top 3 mas jovenes: ")
     for x in range(3):
-        elemento = lt.getElement(lista, x)
-        print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"])
+        elemento = lt.getElement(Top3J, x)
+        print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"] +' creada por: ' + str(elemento['artistname']))
         
 
     print()
     print("Top 3 mas viejos: ")
     for x in range(3):
-        elemento = lt.getElement(lista, cantidad - x)
-        print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"])
+        elemento = lt.getElement(Top3V, x)
+        print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"]+ 'creada por: ' + str(elemento['artistname']))
 
 
 
@@ -183,7 +185,7 @@ def printObrasTransporte(TotalObras, TotalPrecio, TotalPeso,TransportePorCosto, 
     print()
     for i in range(5):
         elemento=lt.getElement(TransportePorCosto,i)
-        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + ', técnica : ' + str(elemento['medium'])+'y costo de transporte: ' + str(elemento['cost']))
+        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + ', técnica : ' + str(elemento['medium'])+'y costo de transporte aprox: ' + str(round(elemento['cost']))+' USD')
 
     print()
     print()
@@ -192,8 +194,9 @@ def printObrasTransporte(TotalObras, TotalPrecio, TotalPeso,TransportePorCosto, 
     print()
     for i in range(5):
         elemento=lt.getElement(TransportePorFecha,i)
-        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + ', técnica : ' + str(elemento['medium'])+'y costo de transporte: ' + str(elemento['cost']))
-
+        print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + ', técnica : ' + str(elemento['medium'])+'y costo de transporte aprox: ' + str(round(elemento['cost']))+' USD')
+    print()
+    print()
 
 
 
@@ -244,12 +247,10 @@ while True:
     elif int(inputs[0]) == 3:
         FechaInicial = input("desde que fecha quieres buscar?(AAAA-MM-DD):   ")
         FechaFin = input("hasta que fecha quieres buscar?(AAAA-MM-DD):   ")
-        MetodoSort=input('Qué algoritmo de ordenamiento desea utilizar: (InsertionSort, ShellSort, MergeSort, QuickSort)   ')
-        SizeSubLista=input('Eliga el porecentaje de la muestra (entre 0 y 1):  ')
         printEspacio()
 
-        CantidadObras=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin,MetodoSort,float(SizeSubLista))
-        printObrasCronoacq(CantidadObras)
+        CantidadObras,Top3J,Top3V=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin)
+        printObrasCronoacq(CantidadObras,Top3J,Top3V)
         printEspacio()
 
 
