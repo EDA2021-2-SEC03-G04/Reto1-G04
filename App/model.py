@@ -282,7 +282,7 @@ def Nacionalidad_obras(catalog):
         Iden = Iden.translate({ord(i): None for i in '[]'})
         Iden = Iden.split(',')
         titulo = obra["name"]
-        fecha = obra["dateacquired"]
+        fecha = obra["date"]
         medio = obra["medium"]
         dimenciones = obra["dimensions"]
 

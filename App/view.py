@@ -248,6 +248,7 @@ while True:
     elif int(inputs[0]) == 7:
         Año_inicial = input("desde que año inician las obras?: ")
         Año_fin = input("hasta que año van las obras?: ")
+        espacio = input("Cual es el area disponible?: ")
 
     else:
         sys.exit(0)
