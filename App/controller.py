@@ -134,3 +134,10 @@ def ObrasArtista(catalog,nombre):
     else:
         return model.ObrasArtista(catalog, nombre)
 
+def Nacionalidad_obras(catalog):
+    """
+    Lista con contadores de nacionalidad
+    """
+    lista = model.Nacionalidad_obras(catalog)
+    return lista
+

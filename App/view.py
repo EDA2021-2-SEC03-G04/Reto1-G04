@@ -143,6 +143,37 @@ def printObrasPorTecnica(TotalObras,TotalTecnicas,TecnicaMasUsada,ObrasArtistaTe
         elemento=lt.getElement(ObrasArtistaTecnica,i)
         print(str(i+1) + ')' + ' La obra: ' + str(elemento['name']) + '  con fecha : '  + str(elemento['date']) + '   dimensiones : ' + str(elemento['dimensions']) + 'y técnica : ' + str(elemento['medium']))
     printEspacio()
+
+def Print_nacionalidad_obras(lista):
+    printEspacio()
+
+    print("Top 10 de nacionalidades con mas artistas")
+
+    for x in range(1, 11):
+        elemento = lt.getElement(lista, x)
+        print(elemento["lugar"] + " con " + str(elemento["cantidad"]) + " artistas")
+
+    print()
+
+    print("De la nacionalidad con mas artistas el top 3 primeros y ultimos")
+
+    print()
+
+    for x in range(2):
+        elemento = lt.getElement(lista, 1)
+        obra = lt.getElement(elemento["obras"], x)  
+        print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
+
+    print()
+
+    cantidad = lt.size(lt.getElement(lista, 1)["obras"])
+
+    for x in range(2):
+        elemento = lt.getElement(lista, 1)
+        obra = lt.getElement(elemento["obras"], cantidad - x)  
+        print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
+
+    printEspacio()
     
 
 """
@@ -207,6 +238,9 @@ while True:
 
     elif int(inputs[0]) == 5:
         print("Cargando...")
+        Nacionalidad_obras = controller.Nacionalidad_obras(catalog)
+        Print_nacionalidad_obras(Nacionalidad_obras)
+
 
     elif int(inputs[0]) == 6:
         depa = input("Que departamento deseas transportar?: ")

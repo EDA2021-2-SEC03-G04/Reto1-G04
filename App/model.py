@@ -265,6 +265,70 @@ def ObrasArtista(catalog, nombre):
     return TotalObras,TotalTecnicas-1,TecnicaMasUsada, ObrasArtistaTecnica
 
     
+def Nacionalidad_obras(catalog):
+    """
+    Lista con la nacionalidad
+    """
+
+    General = lt.newList()
+    Obras=catalog['artworks']
+    Artistas=catalog['artists']
+    NacioYaRegistradas = lt.newList()
+
+    for x in range(lt.size(Obras)):
+
+        obra = lt.getElement(Obras, x)
+        Iden = obra['constituentid']
+        Iden = Iden.translate({ord(i): None for i in '[]'})
+        Iden = Iden.split(',')
+        titulo = obra["name"]
+        fecha = obra["dateacquired"]
+        medio = obra["medium"]
+        dimenciones = obra["dimensions"]
+
+        nacionalidades = lt.newList()
+        nombres = ""
+
+        for y in range(lt.size(Artistas)):
+
+            art = lt.getElement(Artistas, y)
+            idenArt = art['constituentid']
+            nacionalidadArt = art["nationality"]
+            nomArt = art["name"]
+            if idenArt in Iden and nacionalidadArt != "":
+
+                lt.addLast(nacionalidades, nacionalidadArt)
+                nombres = nombres + nomArt + " "
+
+        for z in range(lt.size(nacionalidades)):
+
+            nan = lt.getElement(nacionalidades, z)
+
+            if lt.isPresent(NacioYaRegistradas, nan) == 0:
+
+                #Agregar diccionarios
+                lt.addLast(NacioYaRegistradas, nan)
+                listaObrasMom = lt.newList()
+                obraEspe = {"titulo" : titulo, "artistas" : nombres, "fecha" : fecha , "medio" : medio, "dimenciones" : dimenciones}
+                lt.addLast(listaObrasMom ,obraEspe)
+                agregado = {"lugar" : nan, "cantidad" : 1, "obras" : listaObrasMom}
+                lt.addLast(General, agregado)    
+            else:
+                
+                for x1 in range(lt.size(General)):
+                    elemento = lt.getElement(General, x1)
+                    if elemento["lugar"] == nan:
+                        cantidadNueva = elemento["cantidad"] + 1
+                        elemento["cantidad"] = cantidadNueva
+                        lt.changeInfo(General, x1, elemento)
+
+    mrgsort.sort(General, compNacionalidadByCantidad)
+
+    return General
+
+
+
+
 
 
 
@@ -298,6 +362,11 @@ def compArtistasByBegindate(art1, art2):
     """
     return art1["edad"] < art2["edad"]
 
+def compNacionalidadByCantidad(coso1, coso2):
+    """
+    Compara por cantidad de artistas con nacionalidad
+    """
+    return coso1["cantidad"] > coso2["cantidad"]
 
 # Funciones de ordenamiento
 
