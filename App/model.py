@@ -226,10 +226,11 @@ def obrasCronologicoacq(lista,inicio,final):
     mrgsort.sort(retorno, cmpArtworkByDateAcquired)
     
 
+    
+    #Saca el artista del top 3 más viejos y jóvenes
+    '''
     Top3V=lt.newList(cmpfunction=comparedicts)
     Top3J=lt.newList(cmpfunction=comparedicts)
-
-    #Saca el artista del top 3 más viejos y jóvenes
 
     tamaño=lt.size(retorno)
     cont=0
@@ -282,21 +283,42 @@ def obrasCronologicoacq(lista,inicio,final):
             lt.addLast(Top3V,Obra)
             cont+=1  
         i+=1     
-
-           
-       
-
-
+   
     
-
-
-                
-
-
+    '''
     
+    for i in range(3):
+        nombre=''
+        Obra=lt.getElement(retorno,i)
+        ConstidObra=Obra['constituentid']
+        ConstidObra=ConstidObra.translate({ord(z): None for z in '[]'})
+        ConstidObra=ConstidObra.split(',')
 
+        for j in range(lt.size(artistas)):
+            constid=lt.getElement(artistas,j)['constituentid']
+            if constid in ConstidObra:
+                nombre+=lt.getElement(artistas,j)['name']
+    
+        Obra['artistname']=nombre
+        lt.changeInfo(retorno,i,Obra)
+    
+    for i in range(3):
+        l=lt.size(retorno)-i
+        nombre=''
+        Obra=lt.getElement(retorno,l)
+        ConstidObra=Obra['constituentid']
+        ConstidObra=ConstidObra.translate({ord(z): None for z in '[]'})
+        ConstidObra=ConstidObra.split(',')
 
-    return retorno,Top3J,Top3V
+        for j in range(lt.size(artistas)):
+            constid=lt.getElement(artistas,j)['constituentid']
+            if constid in ConstidObra:
+                nombre+=lt.getElement(artistas,j)['name']
+    
+        Obra['artistname']=nombre
+        lt.changeInfo(retorno,l,Obra)
+
+    return retorno
 
 
 def ObrasArtista(catalog, nombre):

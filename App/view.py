@@ -91,7 +91,7 @@ def printArtistasCrono(lista):
 
 
 
-def printObrasCronoacq(lista,Top3J,Top3V):
+def printObrasCronoacq(lista):
     """
     imprime la cantidad de obras adquiridas en un rango de años
     """
@@ -101,14 +101,14 @@ def printObrasCronoacq(lista,Top3J,Top3V):
     print()
     print("Top 3 mas jovenes: ")
     for x in range(3):
-        elemento = lt.getElement(Top3J, x)
+        elemento = lt.getElement(lista, x)
         print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"] +' creada por: ' + str(elemento['artistname']))
         
 
     print()
     print("Top 3 mas viejos: ")
     for x in range(3):
-        elemento = lt.getElement(Top3V, x)
+        elemento = lt.getElement(lista, cantidad-x)
         print(str(x+1) + ") la obra: " + elemento["name"] + " adquirida en : " + str(elemento["dateacquired"]) + " con medio: " + elemento["medium"] + " y de dimensiones: " +  elemento["dimensions"]+ 'creada por: ' + str(elemento['artistname']))
 
 
@@ -165,7 +165,7 @@ def Print_nacionalidad_obras(lista):
     for x in range(5):
         elemento = lt.getElement(lista, 1)
         obra = lt.getElement(elemento["obras"], x)  
-        print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
+        print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimensiones" + obra["dimenciones"])
 
     print()
 
@@ -174,7 +174,7 @@ def Print_nacionalidad_obras(lista):
     for x in range(5):
         elemento = lt.getElement(lista, 1)
         obra = lt.getElement(elemento["obras"], cantidad - x)  
-        print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
+        print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimensiones" + obra["dimenciones"])
 
     printEspacio()
 
@@ -211,14 +211,14 @@ def printObrasNuevaEX(lista):
 
     for x in range(2 ,7):
         obra = lt.getElement(lista, x)
-        print("La obra de titulo " + str(obra["titulo"]) + " hecha por " + obra["nombre"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + " Con dimenciones " + str(obra["dimenciones"]))
+        print("La obra de titulo " + str(obra["titulo"]) + " hecha por " + obra["nombre"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + " Con dimensiones " + str(obra["dimensiones"]))
 
     print()
     print("ultimas 5:")
 
     for x in range(lt.size(lista) - 5 ,lt.size(lista)):
         obra = lt.getElement(lista, x)
-        print("La obra de titulo " + str(obra["titulo"]) + " hecha por " + obra["nombre"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + " Con dimenciones " + str(obra["dimenciones"]))
+        print("La obra de titulo " + str(obra["titulo"]) + " hecha por " + obra["nombre"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + " Con dimensiones " + str(obra["dimensiones"]))
     
 
     
@@ -268,8 +268,8 @@ while True:
         FechaFin = input("hasta que fecha quieres buscar?(AAAA-MM-DD):   ")
         printEspacio()
 
-        CantidadObras,Top3J,Top3V=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin)
-        printObrasCronoacq(CantidadObras,Top3J,Top3V)
+        CantidadObras=controller.obrasCronologicoacq(catalog,FechaInicial,FechaFin)
+        printObrasCronoacq(CantidadObras)
         printEspacio()
 
 
