@@ -155,13 +155,14 @@ def Print_nacionalidad_obras(lista):
         elemento = lt.getElement(lista, x)
         print(elemento["lugar"] + " con " + str(elemento["cantidad"]) + " artistas")
 
+    
     print()
 
     print("De la nacionalidad con mas artistas el top 3 primeros y ultimos")
 
     print()
 
-    for x in range(2):
+    for x in range(5):
         elemento = lt.getElement(lista, 1)
         obra = lt.getElement(elemento["obras"], x)  
         print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
@@ -170,7 +171,7 @@ def Print_nacionalidad_obras(lista):
 
     cantidad = lt.size(lt.getElement(lista, 1)["obras"])
 
-    for x in range(2):
+    for x in range(5):
         elemento = lt.getElement(lista, 1)
         obra = lt.getElement(elemento["obras"], cantidad - x)  
         print("La obra de titulo " + obra["titulo"] + " De artstas " + obra["artistas"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + "Con dimenciones" + obra["dimenciones"])
@@ -199,7 +200,25 @@ def printObrasTransporte(TotalObras, TotalPrecio, TotalPeso,TransportePorCosto, 
     print()
 
 
+def printObrasNuevaEX(lista):
 
+    printEspacio()
+
+    print("se llena el espacio con " + str(lt.size(lista) -1) + " obras y " + str(lt.getElement(lista, 0)) + " espcio") 
+    
+    print()
+    print("primeras 5:")
+
+    for x in range(2 ,7):
+        obra = lt.getElement(lista, x)
+        print("La obra de titulo " + str(obra["titulo"]) + " hecha por " + obra["nombre"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + " Con dimenciones " + str(obra["dimenciones"]))
+
+    print()
+    print("ultimas 5:")
+
+    for x in range(lt.size(lista) - 5 ,lt.size(lista)):
+        obra = lt.getElement(lista, x)
+        print("La obra de titulo " + str(obra["titulo"]) + " hecha por " + obra["nombre"] + " Hecha en " + str(obra["fecha"]) + " Con el medio " + obra["medio"] + " Con dimenciones " + str(obra["dimenciones"]))
     
 
     
@@ -278,6 +297,9 @@ while True:
         Año_inicial = input("desde que año inician las obras?: ")
         Año_fin = input("hasta que año van las obras?: ")
         espacio = input("Cual es el area disponible?: ")
+        obrasNuevaEx = controller.ObrasNuevaEx(catalog, Año_inicial, Año_fin, espacio)
+        printObrasNuevaEX(obrasNuevaEx)
+
 
     else:
         sys.exit(0)

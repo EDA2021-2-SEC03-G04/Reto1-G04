@@ -148,5 +148,12 @@ def Transporte(catalog,depa):
     res=model.Transporte(catalog,depa)
     return res
 
+def ObrasNuevaEx(catalog, inicio, fin, espacio):
+    """
+    Retorna lista con las obras de nueva galeria
+    """
+    lista = model.ObrasNuevaEx(catalog, inicio, fin, espacio)
+    return lista
+
 
 

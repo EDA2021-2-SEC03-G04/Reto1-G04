@@ -100,7 +100,10 @@ def newArtwork(name,dateacquired,constituentid,date,medium,dimensions,department
         dateacquired2=datetime.date.today()
 
     if date:
-        date=int(date)
+        try:
+            date=int(date)
+        except:
+           date=3000 
     else:
         date=3000
     
@@ -383,7 +386,8 @@ def Nacionalidad_obras(catalog):
             nomArt = art["name"]
             if idenArt in Iden and nacionalidadArt != "":
 
-                lt.addLast(nacionalidades, nacionalidadArt)
+                if lt.isPresent(nacionalidades, nacionalidadArt) == 0:
+                    lt.addLast(nacionalidades, nacionalidadArt)
                 nombres = nombres + nomArt + " "
 
         for z in range(lt.size(nacionalidades)):
@@ -406,6 +410,10 @@ def Nacionalidad_obras(catalog):
                     if elemento["lugar"] == nan:
                         cantidadNueva = elemento["cantidad"] + 1
                         elemento["cantidad"] = cantidadNueva
+
+                        obraEspe = {"titulo" : titulo, "artistas" : nombres, "fecha" : fecha , "medio" : medio, "dimenciones" : dimenciones}
+                        lt.addLast(elemento["obras"] ,obraEspe)
+
                         lt.changeInfo(General, x1, elemento)
 
     mrgsort.sort(General, compNacionalidadByCantidad)
@@ -456,9 +464,62 @@ def Transporte(catalog,depa):
     return TotalObras, TotalPrecio,TotalPeso,ObrasDepto1, ObrasDepto2
 
 
-    
+def ObrasNuevaEx(catalog, inicio, fin, espacio):
+    """
+    Lista con el espacio determinado
+    """
+
+    General = lt.newList()
+    Obras=catalog['artworks']
+    Artistas=catalog['artists']
+    espacioMom = 0
+
+    for x in range(lt.size(Obras)):
+
+        obra = lt.getElement(Obras, x)
+        año = int(obra["date"])
+        largo = obra['height']
+        ancho = obra['width']
+        titulo = obra["name"]
+        medio = obra["medium"]
+
+        if año > int(inicio) and año < int(fin) and largo != "" and ancho != "":
+
+            largo = float(obra['height']) / 100
+            ancho = float(obra['width']) / 100
+            espacioObra = largo * ancho
+
+            if espacioObra + espacioMom < int(espacio):
+
+                espacioMom += espacioObra
+                nombres = ""
+
+                Iden = obra['constituentid']
+                Iden = Iden.translate({ord(i): None for i in '[]'})
+                Iden = Iden.split(',')
+
+                for y in range(lt.size(Artistas)):
+
+                    art = lt.getElement(Artistas, y)
+                    idenArt = art['constituentid']
+                    nacionalidadArt = art["nationality"]
+                    nomArt = art["name"]
+                    if idenArt in Iden:
+
+                        nombres = nombres + nomArt + " "
+
+
+                NuevaObra = { "titulo" : titulo, "fecha" : año, "medio" : medio, "dimenciones" : espacioObra, "nombre" : nombres}
+                lt.addLast(General, NuevaObra)
 
         
+    lt.addFirst(General, espacioMom)
+    
+    return General
+
+
+
+
 
 
 
